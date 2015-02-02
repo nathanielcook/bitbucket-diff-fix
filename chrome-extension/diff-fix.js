@@ -1,12 +1,17 @@
 var fullyLoadedCheckInterval = 300;
 
 function setLocationWhenPageFullyLoaded(newLocation) {
-	var pullRequestLoaded = !!document.getElementById("pullrequest-diff");
+	if (location.href.indexOf("/pull-request/") > -1)
+	{
+		var pullRequestLoaded = !!document.getElementById("pullrequest-diff");
 
-	if (pullRequestLoaded == true)
-		location.href = newLocation;
+		if (pullRequestLoaded == true)
+			location.href = newLocation;
+		else
+			setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, fullyLoadedCheckInterval);
+	}
 	else
-		setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, fullyLoadedCheckInterval);
+		location.href = newLocation;
 }
 	
 var queryParameters = location.search.length
