@@ -27,6 +27,7 @@ function addParametersToBitbucketLinks(urlKey) {
     var count = elems.length;
     for (var i = 0; i < count; i++) {
         if ((' ' + elems[i].className + ' ').indexOf(' execute ') > -1
+        || (' ' + elems[i].className + ' ').indexOf(' changeset-hash ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' comments-link ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' likes-link ') > -1) {
 			if (elems[i].href.indexOf(urlKey) > -1) {
@@ -91,8 +92,7 @@ if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull 
 	setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
 else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page	
-	if (location.href.indexOf("/commits/") == -1)
-		setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
+	setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
 
 	var newLocation = getNewUrl(location.href);
 	
