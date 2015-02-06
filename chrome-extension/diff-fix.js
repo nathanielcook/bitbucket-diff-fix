@@ -48,7 +48,7 @@ function addParametersToCommitLinks() {
         }
     }
     
-    setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
+    setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
 }
 
 if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page
