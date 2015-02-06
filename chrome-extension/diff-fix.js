@@ -42,7 +42,9 @@ function addParametersToCommitLinks() {
     var elems = document.getElementsByTagName('a');
     var count = elems.length;
     for (var i = 0; i < count; i++) {
-        if((' ' + elems[i].className + ' ').indexOf(' hash execute ') > -1) {
+        if((' ' + elems[i].className + ' ').indexOf(' hash execute ') > -1
+        || (' ' + elems[i].className + ' ').indexOf(' comments-link ') > -1
+        || (' ' + elems[i].className + ' ').indexOf(' likes-link ') > -1) {
 			if (elems[i].href.indexOf("/commits/") > -1 && elems[i].href.indexOf(paramString) == -1)
 				elems[i].href = elems[i].href + paramString;
         }
