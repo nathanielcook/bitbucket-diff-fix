@@ -2,17 +2,25 @@ var checkInterval = 300;
 var paramString = "?ts=4&w=1";
 
 function setLocationWhenPageFullyLoaded(newLocation) {
-	if (location.href.indexOf("/pull-request/") > -1)
-	{
-		var pullRequestLoaded = !!document.getElementById("pullrequest-diff");
+	var retry = false;
 
-		if (pullRequestLoaded == true)
-			location.href = newLocation;
-		else
-			setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, checkInterval);
+	if (location.href.indexOf("/pull-request/new") > -1) {
+		if (!!document.getElementById("compare-tabs") != true)
+			retry = true;
 	}
+	else if (location.href.indexOf("/pull-request/update/") > -1) { // viewing an existing pull request
+		if (!!document.getElementById("diff") != true)
+			retry = true;
+	}
+	else if (location.href.indexOf("/pull-request/") > -1) { // viewing an existing pull request
+		if (!!document.getElementById("pullrequest-diff") != true)
+			retry = true;
+	}
+		
+	if (retry == true)
+		setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, checkInterval);
 	else
-		location.href = newLocation;
+		location.href = newLocation;		
 }
 
 function addParametersToPullRequestLinks() {
