@@ -24,7 +24,6 @@ function setLocationWhenPageFullyLoaded(newLocation) {
 }
 
 function addParametersToPullRequestLinks() {
-	var matchClass = "execute";
     var elems = document.getElementsByTagName('a');
     var count = elems.length;
     for (var i = 0; i < count; i++) {
@@ -39,7 +38,20 @@ function addParametersToPullRequestLinks() {
     setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
 
-if (location.href.indexOf("/pull-requests") > -1) {	
+function addParametersToCommitLinks() {
+    var elems = document.getElementsByTagName('a');
+    var count = elems.length;
+    for (var i = 0; i < count; i++) {
+        if((' ' + elems[i].className + ' ').indexOf(' hash execute ') > -1) {
+			if (elems[i].href.indexOf("/commits/") > -1 && elems[i].href.indexOf(paramString) == -1)
+				elems[i].href = elems[i].href + paramString;
+        }
+    }
+    
+    setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
+}
+
+if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page
 	var createPullRequestLink = document.getElementById("create-pull-request-contextual");
 	
 	// modify "Create pull request" link
@@ -49,10 +61,9 @@ if (location.href.indexOf("/pull-requests") > -1) {
 			createPullRequestLink.href = createPullRequestLink.href + paramString;
 	}
 	
-	// modify the other links
 	setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
-else {
+else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page
 	var queryParameters = location.search.length
 		? location.search.replace('?', '').split('&')
 		: []
@@ -78,5 +89,8 @@ else {
 	if (parametersChanged == true) {
 		var newLocation = location.pathname + '?' + queryParameters.join('&') + location.hash;		
 		setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, checkInterval);
-	}	
+	}
+	
+	if (location.href.indexOf("/commits/") == -1)
+		setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
 }
