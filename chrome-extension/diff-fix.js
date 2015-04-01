@@ -1,4 +1,5 @@
 var checkInterval = 300;
+var createPullRequestUrlSuffix = "/pull-request/new";
 
 function setLocationWhenPageFullyLoaded(newLocation) {
 	var retry = false;
@@ -79,20 +80,17 @@ function getNewUrl(url) {
 	return newUrl;
 }
 
-if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page
-	var suffix = "/pull-request/new";
-	
-	// modify "Create pull request" links
-	
-	var createPullRequestLink1 = document.getElementById("repo-create-pull-request-link");	
-	if (!!createPullRequestLink1 == true) {
-		if (createPullRequestLink1.href.indexOf(suffix, this.length - suffix.length) !== -1) // i.e. if (string.endsWith(suffix))
-			createPullRequestLink1.href = getNewUrl(createPullRequestLink1.href);
-	}
-	
+// this link is on all pages
+var createPullRequestLink1 = document.getElementById("repo-create-pull-request-link");	
+if (!!createPullRequestLink1 == true) {
+	if (createPullRequestLink1.href.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1) // i.e. if (string.endsWith(createPullRequestUrlSuffix))
+		createPullRequestLink1.href = getNewUrl(createPullRequestLink1.href);
+}
+
+if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page	
 	var createPullRequestLink2 = document.getElementById("create-pull-request-contextual");
 	if (!!createPullRequestLink2 == true) {
-		if (createPullRequestLink2.href.indexOf(suffix, this.length - suffix.length) !== -1) // i.e. if (string.endsWith(suffix))
+		if (createPullRequestLink2.href.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1) // i.e. if (string.endsWith(createPullRequestUrlSuffix))
 			createPullRequestLink2.href = getNewUrl(createPullRequestLink2.href);
 	}
 	
