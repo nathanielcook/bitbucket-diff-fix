@@ -80,23 +80,34 @@ function getNewUrl(url) {
 	return newUrl;
 }
 
+function endsWithCreatePullRequestSuffix(url)
+{
+	return url.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1; // i.e. string.endsWith(createPullRequestUrlSuffix)
+}
+
 // this link is on all pages
 var createPullRequestLink1 = document.getElementById("repo-create-pull-request-link");	
 if (!!createPullRequestLink1 == true) {
-	if (createPullRequestLink1.href.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1) // i.e. if (string.endsWith(createPullRequestUrlSuffix))
+	if (endsWithCreatePullRequestSuffix(createPullRequestLink1.href))
 		createPullRequestLink1.href = getNewUrl(createPullRequestLink1.href);
 }
 
 if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page	
 	var createPullRequestLink2 = document.getElementById("create-pull-request-contextual");
 	if (!!createPullRequestLink2 == true) {
-		if (createPullRequestLink2.href.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1) // i.e. if (string.endsWith(createPullRequestUrlSuffix))
+		if (endsWithCreatePullRequestSuffix(createPullRequestLink2.href))
 			createPullRequestLink2.href = getNewUrl(createPullRequestLink2.href);
 	}
 	
 	setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
 else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page	
+	
+	var editPullRequestLink = document.getElementById("edit-pullrequest");	
+	if (!!editPullRequestLink == true) {
+		editPullRequestLink.href = getNewUrl(editPullRequestLink.href);
+	}
+
 	setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
 
 	var newLocation = getNewUrl(location.href);
