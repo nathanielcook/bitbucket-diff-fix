@@ -28,6 +28,7 @@ function addParametersToBitbucketLinks(urlKey) {
     var count = elems.length;
     for (var i = 0; i < count; i++) {
         if ((' ' + elems[i].className + ' ').indexOf(' execute ') > -1
+    	|| (' ' + elems[i].className + ' ').indexOf(' cancel ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' changeset-hash ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' comments-link ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' likes-link ') > -1) {
@@ -92,17 +93,16 @@ if (!!createPullRequestLink1 == true) {
 		createPullRequestLink1.href = getNewUrl(createPullRequestLink1.href);
 }
 
+setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
+
 if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page	
 	var createPullRequestLink2 = document.getElementById("create-pull-request-contextual");
 	if (!!createPullRequestLink2 == true) {
 		if (endsWithCreatePullRequestSuffix(createPullRequestLink2.href))
 			createPullRequestLink2.href = getNewUrl(createPullRequestLink2.href);
 	}
-	
-	setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
 else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page	
-	
 	var editPullRequestLink = document.getElementById("edit-pullrequest");	
 	if (!!editPullRequestLink == true) {
 		editPullRequestLink.href = getNewUrl(editPullRequestLink.href);
