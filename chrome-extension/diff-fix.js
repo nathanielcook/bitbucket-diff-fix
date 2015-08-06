@@ -81,9 +81,12 @@ function getNewUrl(url) {
 	return newUrl;
 }
 
-function endsWithCreatePullRequestSuffix(url)
-{
-	return url.indexOf(createPullRequestUrlSuffix, this.length - createPullRequestUrlSuffix.length) !== -1; // i.e. string.endsWith(createPullRequestUrlSuffix)
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+function endsWithCreatePullRequestSuffix(url) {
+	return endsWith(url, createPullRequestUrlSuffix);
 }
 
 // this link is on all pages
@@ -95,7 +98,7 @@ if (!!createPullRequestLink1 == true) {
 
 setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 
-if (location.href.indexOf("/pull-requests") > -1) {	// if viewing the main pull requests page	
+if (endsWith(location.href, "/pull-requests/")) {	// if viewing the main pull requests page	
 	var createPullRequestLink2 = document.getElementById("create-pull-request-contextual");
 	if (!!createPullRequestLink2 == true) {
 		if (endsWithCreatePullRequestSuffix(createPullRequestLink2.href))
