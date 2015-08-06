@@ -1,5 +1,5 @@
 var checkInterval = 300;
-var createPullRequestUrlSuffix = "/pull-request/new";
+var createPullRequestUrlSuffix = "/pull-requests/new";
 
 function setLocationWhenPageFullyLoaded(newLocation) {
 	var retry = false;
