@@ -105,7 +105,7 @@ if (endsWith(location.href, "/pull-requests/")) {	// if viewing the main pull re
 			createPullRequestLink2.href = getNewUrl(createPullRequestLink2.href);
 	}
 }
-else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page	
+else { // viewing any other page, pull request diff, new pull request, update pull request or a commit page    
 	var editPullRequestLink = document.getElementById("edit-pullrequest");	
 	if (!!editPullRequestLink == true) {
 		editPullRequestLink.href = getNewUrl(editPullRequestLink.href);
@@ -113,8 +113,14 @@ else { // viewing any other page, pull request diff, new pull request, update pu
 
 	setTimeout(function(){ addParametersToCommitLinks(); }, checkInterval);
 
-	var newLocation = getNewUrl(location.href);
-	
-	if (newLocation != location.href)
-		setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, checkInterval);	
+	if (!endsWith(location.href, "/commits/") 
+		&& !endsWith(location.href, "/commits/all")
+		&& !endsWith(location.href, "/raw/")
+		&& location.href.indexOf("/commits/branch") == -1) {
+
+		var newLocation = getNewUrl(location.href);
+		
+		if (newLocation != location.href)
+			setTimeout(function(){ setLocationWhenPageFullyLoaded(newLocation); }, checkInterval);
+	}
 }
