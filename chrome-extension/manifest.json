@@ -1,7 +1,7 @@
 {
 	"manifest_version" : 2,
 	"name" : "Bitbucket diff fix",
-	"version" : "2.3",
+	"version" : "2.4",
 	"description" : "Adds ts=4 and w=1 query parameters to bitbucket pull request and commit diffs",
 	"icons" : {
 		"48" : "img/icon_48.png",
