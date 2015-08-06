@@ -4,15 +4,15 @@ var createPullRequestUrlSuffix = "/pull-requests/new";
 function setLocationWhenPageFullyLoaded(newLocation) {
 	var retry = false;
 
-	if (location.href.indexOf("/pull-request/new") > -1) {
+	if (location.href.indexOf("/pull-requests/new") > -1) {
 		if (!!document.getElementById("compare-tabs") != true)
 			retry = true;
 	}
-	else if (location.href.indexOf("/pull-request/update/") > -1) { // viewing an existing pull request
+	else if (location.href.indexOf("/pull-requests/update/") > -1) { // viewing an existing pull request
 		if (!!document.getElementById("diff") != true)
 			retry = true;
 	}
-	else if (location.href.indexOf("/pull-request/") > -1) { // viewing an existing pull request
+	else if (location.href.indexOf("/pull-requests/") > -1 && !endsWith(location.href, "/pull-requests/")) { // viewing an existing pull request
 		if (!!document.getElementById("pullrequest-diff") != true)
 			retry = true;
 	}
@@ -42,7 +42,7 @@ function addParametersToBitbucketLinks(urlKey) {
 }
 
 function addParametersToPullRequestLinks() {
-	addParametersToBitbucketLinks("/pull-request/");    
+	addParametersToBitbucketLinks("/pull-requests/");    
     setTimeout(function(){ addParametersToPullRequestLinks(); }, checkInterval);
 }
 
