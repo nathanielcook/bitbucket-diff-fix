@@ -30,6 +30,8 @@ function addParametersToBitbucketLinks(urlKey) {
         if ((' ' + elems[i].className + ' ').indexOf(' execute ') > -1
     	|| (' ' + elems[i].className + ' ').indexOf(' cancel ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' changeset-hash ') > -1
+        || (' ' + elems[i].className + ' ').indexOf(' hash ') > -1
+        || (' ' + elems[i].className + ' ').indexOf(' pull-request-title ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' comments-link ') > -1
         || (' ' + elems[i].className + ' ').indexOf(' likes-link ') > -1) {
 			if (elems[i].href.indexOf(urlKey) > -1) {
